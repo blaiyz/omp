@@ -1,0 +1,263 @@
+"$schema" = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json"
+version = 2
+final_space = true
+console_title_template = '{{ .Shell }} in {{ .Folder }}'
+shell_integration = true
+
+[palette]
+  accent = '#e4e4e4'
+  accent_text = '#f2f3f8'
+  primary = '#d75f00'
+  primary_text = '#ba3200'
+  primary_text_alt = '#fcaf67'
+  secondary = '#ff8420'
+  success = '#3c9036'
+  error = '#c22929'
+  battery_1 = '#d50000'
+  battery_2 = '#e7371c'
+  battery_3 = '#fc5026'
+  battery_4 = '#f4621a'
+  battery_5 = '#ff771c'
+  battery_6 = '#f98219'
+
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  trailing_diamond = ''
+
+  [[blocks.segments]]
+    type = 'status'
+    style = 'plain'
+    foreground_templates = ['{{ if .Error }}p:error{{ end }}']
+    template = '{{ if gt .PromptCount 1}}╰─ {{ if .Error }}  {{ .String }}{{ else }}󰗠{{ end }}{{end}}'
+    alias = 'status_code'
+    foreground = 'p:success'
+
+    [blocks.segments.properties]
+      always_enabled = true
+      status_separator = ' | '
+
+  [[blocks.segments]]
+    type = 'executiontime'
+    style = 'plain'
+    leading_diamond = ''
+    template = '{{ if gt .PromptCount 1}}  󰄉 {{ .FormattedMs }}{{end}}'
+    alias = 'execution_time'
+    foreground = 'p:secondary'
+
+    [blocks.segments.properties]
+      always_enabled = true
+      style = 'roundrock'
+
+  [[blocks.segments]]
+    type = 'text'
+    style = 'plain'
+    template = "{{ if gt .PromptCount 1}}\n{{end}}"
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    type = 'sysinfo'
+    style = 'plain'
+    template = '   <p:secondary> {{ (div ((sub .PhysicalTotalMemory .PhysicalFreeMemory)|float64)  1073741824.0) }}/{{ (div .PhysicalTotalMemory 1073741824.0) }}GB</>'
+    background = 'transparent'
+    foreground = 'p:accent_text'
+
+    [blocks.segments.properties]
+      precision = 2
+
+  [[blocks.segments]]
+    type = 'session'
+    style = 'plain'
+    template = '{{ if .SSHSession }}   @{{ .HostName }}{{ end }}'
+    background = 'transparent'
+    foreground = 'p:primary_text_alt'
+
+  [[blocks.segments]]
+    type = 'battery'
+    style = 'plain'
+    foreground_templates = [
+        '{{ if lt .Percentage 10 }}p:battery_1{{ end }}',
+        '{{ if lt .Percentage 30 }}p:battery_2{{ end }}',
+        '{{ if lt .Percentage 50 }}p:battery_3{{ end }}',
+        '{{ if lt .Percentage 75 }}p:battery_4{{ end }}',
+        '{{ if lt .Percentage 97 }}p:battery_5{{ end }}'
+        ]
+    template = '{{ if not .Error }}  {{ if lt .Percentage 10 }}󱃍{{ else if lt .Percentage 30 }}󰁺{{ else if lt .Percentage 50 }}󰁼{{ else if lt .Percentage 75 }}󰁿{{ else if lt .Percentage 97 }}󰂁{{ else }}󰁹{{ end }} {{ .Percentage}}%{{ end }}'
+    background = 'transparent'
+    foreground = 'p:battery_6'
+
+  [[blocks.segments]]
+    type = 'project'
+    style = 'plain'
+    template = '  {{ if .Error }}{{ .Error }}{{ else }} {{ if .Name }}{{ .Name }}{{  end }}{{ if .Version }}@{{.Version}}{{ end }} on {{ .Type }}{{ end }}'
+    background = 'transparent'
+    foreground = 'p:accent_text'
+
+  [[blocks.segments]]
+    type = 'dotnet'
+    style = 'plain'
+    template = '{{ if not .Error }}  {{ if .Unsupported }}{{ else }} {{ .Full }}{{  end }}{{ end }}'
+    foreground = '#00ffff'
+
+  [[blocks.segments]]
+    type = 'go'
+    style = 'plain'
+    template = '{{ if not .Error }}   {{ .Full }}{{ end }}'
+    foreground = '#7FD5EA'
+
+  [[blocks.segments]]
+    type = 'java'
+    style = 'plain'
+    template = '{{ if not .Error }}   {{ .Full }}{{ end }}'
+    foreground = '#da5147'
+
+  [[blocks.segments]]
+    type = 'kotlin'
+    style = 'plain'
+    template = '{{ if not .Error }}   {{ .Full }}{{ end }}'
+    foreground = '#906cff'
+
+  [[blocks.segments]]
+    type = 'lua'
+    style = 'plain'
+    template = '{{ if not .Error }}   {{ .Full }}{{ end }}'
+    foreground = 'blue'
+
+  [[blocks.segments]]
+    type = 'node'
+    style = 'plain'
+    template = '{{ if not .Error }}   {{ .Full }}{{ end }}'
+    foreground = '#6CA35E'
+
+  [[blocks.segments]]
+    type = 'python'
+    style = 'plain'
+    template = '{{ if not .Error }}   {{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full  }}{{ end }}'
+    foreground = '#c3db4a'
+
+    [blocks.segments.properties]
+      display_mode = 'context'
+
+  [[blocks.segments]]
+    type = 'rust'
+    style = 'plain'
+    template = '{{ if not .Error }}   {{ .Full }}{{ end }}'
+    foreground = '#e44400'
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    type = 'os'
+    style = 'diamond'
+    leading_diamond = '╭─'
+    template = ' {{ if .WSL }}WSL on {{end}}{{ .Icon }}'
+    background = 'p:primary'
+    foreground = 'p:accent_text'
+
+    [blocks.segments.properties]
+      alpine = ''
+      arch = ''
+      centos = ''
+      debian = ''
+      elementary = ''
+      fedora = ''
+      gentoo = ''
+      linux = ''
+      macos = ''
+      manjaro = ''
+      mint = ''
+      opensuse = ''
+      raspbian = ''
+      ubuntu = '󰕈'
+      windows = ' '
+
+  [[blocks.segments]]
+    type = 'shell'
+    style = 'diamond'
+    template = ' {{ .Name }} '
+    background = 'p:primary'
+    foreground = 'p:accent_text'
+
+  [[blocks.segments]]
+    type = 'session'
+    style = 'powerline'
+    powerline_symbol = ''
+    template = ' <b>{{ .UserName }}</b> '
+    background = 'p:accent'
+    foreground = 'p:primary_text'
+
+  [[blocks.segments]]
+    type = 'path'
+    style = 'powerline'
+    powerline_symbol = ''
+    template = ' {{ .Path }}{{ if not .Writable }} {{ end }} '
+    background = 'p:secondary'
+    foreground = 'p:accent_text'
+
+    [blocks.segments.properties]
+      folder_format = '%s'
+      folder_icon = '…'
+      folder_separator_icon = ' <transparent></> '
+      max_depth = 2
+      style = 'agnoster_short'
+
+  [[blocks.segments]]
+    type = 'git'
+    style = 'diamond'
+    background_templates = ['{{ if or (.Working.Changed) (.Staging.Changed) }}#3300aa{{ end }}', '{{ if and (gt .Ahead 0) (gt .Behind 0) }}#54433a{{ end }}', '{{ if gt .Ahead 0 }}#744d89{{ end }}', '{{ if gt .Behind 0 }}#744d89{{ end }}']
+    leading_diamond = '<background,transparent></>'
+    trailing_diamond = ''
+    template = ' {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if  .Working.Changed }} <transparent></> <p:accent_text> {{ .Working.String }}</p:accent_text>{{  end }}{{ if .Staging.Changed }} <transparent></> <p:accent_text> {{ .Staging.String  }}</p:accent_text>{{ end }}{{ if gt .StashCount 0 }} <transparent></> <p:accent_text>󰆓  {{ .StashCount }}</p:accent_text>{{ end }} '
+    background = '#0036aa'
+    foreground = 'p:accent_text'
+
+    [blocks.segments.properties]
+      branch_gone_icon = ''
+      branch_icon = ' '
+      branch_identical_icon = ''
+      branch_max_length = 25
+      fetch_stash_count = true
+      fetch_status = true
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    type = 'text'
+    style = 'plain'
+    template = '╰─{{ if .Root }}#{{else}}❯{{end}}'
+    foreground = 'p:primary'
+
+[[tooltips]]
+  type = 'ipify'
+  tips = ['ip']
+  style = 'diamond'
+  leading_diamond = ''
+  trailing_diamond = ''
+  template = '󰖟 {{ .IP }}'
+  background = 'p:primary'
+  foreground = 'p:accent_text'
+
+  [tooltips.properties]
+    http_timeout = 1000
+
+[transient_prompt]
+  template = "{{ if gt .PromptCount 1}}{{ if not .Segments.status_code.Error }}<p:success>╰─ 󰗠</>{{ else }}<p:error>╰─   {{ .Segments.status_code.String }}</>{{ end }} <p:secondary> 󰄉 {{ .Segments.execution_time.FormattedMs }}</>  \n\n{{end}}<p:primary>╭─</><p:accent_text,p:primary>󰃰 {{now|date \"15:04:05\"}}</><p:primary></> "
+  background = 'transparent'
+  foreground = 'p:accent_text'
+
+[secondary_prompt]
+  template = '╰─{{ if .Root }}#{{else}}❯{{end}}'
+  background = 'transparent'
+  foreground = 'p:primary'
+
