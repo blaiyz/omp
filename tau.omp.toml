@@ -183,7 +183,7 @@ shell_integration = true
     type = 'session'
     style = 'powerline'
     powerline_symbol = ''
-    template = ' <b>{{ .UserName }}</b>{{ if .SSHSession }}@{{ .HostName }}{{ end }} '
+    template = ' <b>{{ .UserName }}{{ if .SSHSession }}@{{ .HostName }}{{ end }}</b> '
     background = 'p:accent'
     foreground = 'p:primary_text'
 
