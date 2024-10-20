@@ -71,13 +71,6 @@ shell_integration = true
       precision = 2
 
   [[blocks.segments]]
-    type = 'session'
-    style = 'plain'
-    template = '{{ if .SSHSession }}   @{{ .HostName }}{{ end }}'
-    background = 'transparent'
-    foreground = 'p:primary_text_alt'
-
-  [[blocks.segments]]
     type = 'battery'
     style = 'plain'
     foreground_templates = [
@@ -190,7 +183,7 @@ shell_integration = true
     type = 'session'
     style = 'powerline'
     powerline_symbol = ''
-    template = ' <b>{{ .UserName }}</b> '
+    template = ' <b>{{ .UserName }}</b>{{ if .SSHSession }}@{{ .HostName }}{{ end }} '
     background = 'p:accent'
     foreground = 'p:primary_text'
 
